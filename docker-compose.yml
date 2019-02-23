@@ -1,0 +1,15 @@
+version: '3'
+services:
+  app:
+    build: ./client/
+    volumes:
+      - ./client/:/app
+    ports:
+      - "8000:8000"
+    command: nuxt-ts
+  api:
+    build: ./server/.
+    volumes:
+      - ./server/:/app
+    ports:
+      - "5432:5432"

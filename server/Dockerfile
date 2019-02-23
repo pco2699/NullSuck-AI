@@ -4,8 +4,13 @@ RUN mkdir /app && pip install pipenv
 
 WORKDIR /app
 
-COPY . .
+COPY ./Pipfile ./
+COPY ./Pipfile.lock ./
+
 RUN pipenv install
 
+COPY . .
+
+
 ENTRYPOINT ["pipenv", "run"]
-CMD ["python", "hello_world.py"]
+CMD ["production"]
