@@ -5,10 +5,10 @@
   "author": "pco2699",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -21,6 +21,7 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.16.4",
     "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.4",
     "tslint-plugin-prettier": "^2.0.1"
   }
 }
