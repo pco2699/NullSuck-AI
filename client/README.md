@@ -1,6 +1,6 @@
-# nullsuck-ai
+# NullSuck-AI
 
-> NullSuck AI Project
+> NullSuck-AI Project
 
 ## Build Setup
 
