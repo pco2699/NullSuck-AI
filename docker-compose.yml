@@ -6,7 +6,7 @@ services:
       - ./client/:/app
     ports:
       - "8000:8000"
-    command: nuxt-ts
+    command: yarn run dev
   api:
     build: ./server/.
     volumes:

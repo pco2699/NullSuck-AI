@@ -6,5 +6,7 @@ WORKDIR /app
 COPY ./package.json ./
 COPY ./yarn.lock ./
 
-RUN yarn install && nuxt-ts build
-CMD ["nuxt-ts", "start"]
+COPY . .
+
+RUN yarn install && yarn run build
+CMD ["yarn", "run", "start"]

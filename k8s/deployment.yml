@@ -1,0 +1,21 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  name: sample
+  labels:
+    app: sample
+spec:
+  replicas: 2 # レプリケーションの増減数
+  selector:
+    matchLabels:
+      app: sample
+  template:
+    metadata:
+      labels:
+        app: sample
+    spec:
+      containers:
+      - name: sample
+        image: asia.gcr.io/${PROJECT_NAME}/sample:${CIRCLE_SHA1}
+        ports:
+        - containerPort: 80
