@@ -1,26 +1,32 @@
 {
-  "name": "nullsuck-ai",
+  "name": "nullsuck-ai-app",
   "version": "1.0.0",
-  "description": "NullSuck AI Project",
+  "description": "NullSuck-AI Project",
   "author": "pco2699",
   "private": true,
   "scripts": {
-    "dev": "nuxt",
-    "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate"
+    "dev": "nuxt-ts",
+    "build": "nuxt-ts build",
+    "start": "nuxt-ts start",
+    "generate": "nuxt-ts generate",
+    "lint": "tslint --ext .ts,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@nuxtjs/pwa": "^2.6.0",
     "cross-env": "^5.2.0",
-    "nuxt-ts": "^2.4.3",
-    "vue-property-decorator": "^7.3.0"
+    "nuxt-ts": "^2.4.0",
+    "vuetify": "^1.5.0",
+    "vuetify-loader": "^1.2.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.9",
-    "prettier": "^1.16.4",
+    "prettier": "1.14.3",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.4",
     "tslint-plugin-prettier": "^2.0.1"
   }
 }
