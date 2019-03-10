@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+        image: asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
         ports:
         - containerPort: 3000
         env:
