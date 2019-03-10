@@ -3,8 +3,12 @@ kind: Ingress
 metadata:
   name: app-ingress
   annotations:
-    kubernetes.io/ingress.global-static-ip-name: "nullsuck-ip"
+    kubernetes.io/ingress.global-static-ip-name: nullsuck-ip
+    ingress.gcp.kubernetes.io/pre-shared-cert: nullsuck-cert
 spec:
-  backend:
-    serviceName: app-svc
-    servicePort: 3000
+  rules:
+    - host: ai.pco2699.net
+      http:
+        backend:
+          serviceName: app-svc
+          servicePort: 3000
