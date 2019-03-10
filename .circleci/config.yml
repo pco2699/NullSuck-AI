@@ -8,7 +8,7 @@ jobs:
       - GOOGLE_COMPUTE_ZONE: "asia-northeast1-a"
       - GOOGLE_CLUSTER_NAME: "nullsuck"
     docker:
-      - image: google/cloud-sdk:237.0.0-alpine
+      - image: google/cloud-sdk:237.0.0
     steps:
       - checkout
       - run:
