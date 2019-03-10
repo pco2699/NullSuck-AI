@@ -6,6 +6,7 @@ spec:
   rules:
   - http:
       paths:
-      - backend:
+      - path: /
+        backend:
           serviceName: app
           servicePort: 3000

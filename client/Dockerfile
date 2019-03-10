@@ -5,8 +5,9 @@ WORKDIR /app
 
 COPY ./package.json ./yarn.lock ./
 
-RUN yarn install && yarn run build
-
+RUN yarn install
 COPY . .
+
+RUN yarn run build
 
 CMD ["yarn", "run", "start"]
