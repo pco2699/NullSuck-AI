@@ -3,7 +3,7 @@ jobs:
   deploy_to_prod:
     working_directory: /app
     environment:
-      - PROJECT_NAME: "NullSuck"
+      - PROJECT_NAME: "nullsuck"
       - GOOGLE_PROJECT_ID: "nullsuck"
       - GOOGLE_COMPUTE_ZONE: "asia-northeast1-a"
       - GOOGLE_CLUSTER_NAME: "nullsuck"
