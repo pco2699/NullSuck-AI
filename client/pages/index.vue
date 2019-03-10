@@ -60,7 +60,7 @@
   </v-layout>
 </template>
 
-<script >
+<script>
 import Logo from '~/components/Logo.vue'
 import VuetifyLogo from '~/components/VuetifyLogo.vue'
 
