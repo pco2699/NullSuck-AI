@@ -26,10 +26,10 @@ jobs:
           command: |
             docker build \
               -t ${PROJECT_NAME}/app ./client/.
-            docker tag ${PROJECT_NAME}/app asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+            docker tag ${PROJECT_NAME}/app asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}/app:${CIRCLE_SHA1}
             docker build \
               -t ${PROJECT_NAME}/api ./server/.
-            docker tag ${PROJECT_NAME}/api asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+            docker tag ${PROJECT_NAME}/api asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}/api:${CIRCLE_SHA1}
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
             docker push asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}/api:${CIRCLE_SHA1}
             docker push asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}/app:${CIRCLE_SHA1}
