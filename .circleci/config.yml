@@ -39,7 +39,6 @@ jobs:
             bash ./concat.sh
             envsubst < ./k8s.yml > ./patched_k8s.yml
             kubectl apply -f ./patched_k8s.yml
-            kubectl rollout status deployment/${PROJECT_NAME}
 
 workflows:
   version: 2

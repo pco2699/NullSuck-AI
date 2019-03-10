@@ -8,10 +8,14 @@ import os
 
 Base = declarative_base()
 
-DATABASE_URL = os.environ.get('DATABASE_URL')
+DB_USER = os.environ.get('DB_USER')
+DB_PASSWORD = os.environ.get('DB_PASSWORD')
+DB_HOST = os.environ.get('DB_HOST')
+DB_URL = 'mysql://', DB_USER + ':' + DB_PASSWORD + '@' + DB_HOST + ':3306'
+
 ECHO_LOG = False
 engine = create_engine(
-    RDB_PATH, echo=ECHO_LOG
+    DB_URL, echo=ECHO_LOG
 )
 Session = sessionmaker(bind=engine)
 session = Session()
