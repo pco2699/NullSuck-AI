@@ -8,4 +8,4 @@ spec:
       paths:
       - backend:
           serviceName: app
-          servicePort: 80
+          servicePort: 3000
