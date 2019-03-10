@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: app
-  labels:
-    app: app
 spec:
   replicas: 1
   selector:
@@ -16,7 +14,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
+        image: asia.gcr.io/nullsuck/app:5d0d1aa2e3ed99569f3cb74f4f3be90d9977de2f
         ports:
         - containerPort: 3000
         env:
