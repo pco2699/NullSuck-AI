@@ -10,6 +10,6 @@ spec:
     - host: ai.pco2699.net
       http:
         paths:
-          backend:
+        - backend:
             serviceName: app-svc
             servicePort: 3000
