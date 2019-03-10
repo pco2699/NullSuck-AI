@@ -1,16 +1,17 @@
 FROM python:3.6-alpine
 
-RUN mkdir /app && pip install pipenv
+RUN apk --no-cache --update-cache add gcc gfortran python python-dev py-pip build-base wget freetype-dev libpng-dev openblas-dev && \
+    mkdir /app && \
+    pip install pipenv
 
 WORKDIR /app
 
-COPY ./Pipfile ./
-COPY ./Pipfile.lock ./
+COPY ./Pipfile ./Pipfile.lock ./
 
-RUN pipenv install
+RUN pipenv install --system
 
 COPY . .
 
 
 ENTRYPOINT ["pipenv", "run"]
-CMD ["production"]
+CMD ["prod"]

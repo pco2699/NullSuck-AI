@@ -1,7 +1,13 @@
 import responder
 
-api = responder.API()
+import os
+from os.path import join, dirname
+from dotenv import load_dotenv
 
+dotenv_path = join(dirname(__file__), '/config/env', '.env', '.' + os.environ.get('PY_ENV') or 'local')
+load_dotenv(dotenv_path)
+
+api = responder.API()
 
 @api.route("/")
 def hello_world(req, resp):
