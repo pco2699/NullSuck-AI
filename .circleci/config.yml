@@ -36,9 +36,9 @@ jobs:
       - run:
           name: Deploy to Kubernetes
           command: |
-            bash ${HOME}/k8s/concat.sh
-            envsubst < ${HOME}/k8s/k8s.yml > ${HOME}/patched_k8s.yml
-            kubectl apply -f ${HOME}/patched_k8s.yml
+            bash ./k8s/concat.sh
+            envsubst < ./k8s/k8s.yml > ./patched_k8s.yml
+            kubectl apply -f ./patched_k8s.yml
             kubectl rollout status deployment/${PROJECT_NAME}
 
 workflows:
