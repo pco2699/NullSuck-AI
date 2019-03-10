@@ -5,7 +5,7 @@ jobs:
     environment:
       - PROJECT_NAME: "NullSuck"
       - GOOGLE_PROJECT_ID: "nullsuck"
-      - GOOGLE_COMPUTE_ZONE: "asia-northeast"
+      - GOOGLE_COMPUTE_ZONE: "asia-northeast1-a"
       - GOOGLE_CLUSTER_NAME: "nullsuck"
     docker:
       - image: google/cloud-sdk:237.0.0-alpine
