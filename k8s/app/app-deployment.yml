@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+      - name: app
+        image: asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
+        ports:
+        - containerPort: 3000
+        env:
+          - name: API_URL
+            value: "http://api:5432"

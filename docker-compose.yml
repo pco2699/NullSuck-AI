@@ -5,11 +5,31 @@ services:
     volumes:
       - ./client/:/app
     ports:
-      - "8000:8000"
+      - "3000:3000"
     command: yarn run dev
+    environment:
+      API_URL: "http://api:5432"
   api:
     build: ./server/.
     volumes:
       - ./server/:/app
     ports:
       - "5432:5432"
+    environment:
+      PY_ENV: 'local'
+  db:
+    image: mysql:5.7
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
+      TZ: "Asia/Tokyo"
+  db_volume:
+    image: busybox:1.29.3
+    volumes:
+      - mysql_volume:/var/lib/mysql
+    container_name: mysql_volume
+volumes:
+  mysql_volume:

@@ -1,77 +1,50 @@
 version: 2
 jobs:
-  build:
+  deploy_to_prod:
     working_directory: /app
     environment:
-      PROJECT_NAME: my-project-id
-      CLUSTER_NAME: my-cluster-name
-      CLOUDSDK_COMPUTE_ZONE: asia-northeast1-a
-      DEBIAN_FRONTEND: noninteractive
-      GOOGLE_APPLICATION_CREDENTIALS: ${HOME}/account-auth.json
+      - PROJECT_NAME: "nullsuck"
+      - GOOGLE_PROJECT_ID: "nullsuck"
+      - GOOGLE_COMPUTE_ZONE: "asia-northeast1-a"
+      - GOOGLE_CLUSTER_NAME: "nullsuck"
     docker:
-      - image: google/cloud-sdk:171.0.0-alpine
+      - image: google/cloud-sdk:237.0.0
     steps:
       - checkout
+      - run:
+          name: Setup Google Cloud SDK
+          command : |
+            apt-get install -qq -y gettext
+            echo $GCLOUD_SERVICE_KEY > ${HOME}/gcloud-service-key.json
+            gcloud auth activate-service-account --key-file=${HOME}/gcloud-service-key.json
+            gcloud --quiet config set project ${GOOGLE_PROJECT_ID}
+            gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
+            gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
       - setup_remote_docker
-      - restore_cache:
-          keys:
-            - v1-{{ .Branch }}
-          paths:
-            - /caches/app.tar
       - run:
-          name: Install dependencies
+          name: Docker build and push
           command: |
-            apk add --no-cache
-              py-pip=9.0.0-r1
-              gettext
-            pip install
-              docker-compose==1.12.0
-            gcloud components install kubectl
+            docker build \
+              -t ${PROJECT_NAME}/app ./client/.
+            docker tag ${PROJECT_NAME}/app asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
+            docker build \
+              -t ${PROJECT_NAME}/api ./server/.
+            docker tag ${PROJECT_NAME}/api asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+            gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
+            docker push asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+            docker push asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
       - run:
-          name: Install Docker client
+          name: Deploy to Kubernetes
           command: |
-            set -x
-            VER="17.05.0-ce"
-            curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
-            tar -xz -C /tmp -f /tmp/docker-$VER.tgz
-            mv /tmp/docker/* /usr/bin
-      - run:
-          name: Check docker version
-          command: |
-            docker version
-      - run:
-          name: Load Docker image layer cache
-          command: |
-            set +o pipefail
-            docker load -i /caches/app.tar | true
-      - run:
-          name: Build application Docker image
-          command: |
-            docker build --cache-from=asia.gcr.io/${PROJECT_NAME}/sample:latest -t asia.gcr.io/${PROJECT_NAME}/sample:$CIRCLE_SHA1 .
-            docker tag asia.gcr.io/${PROJECT_NAME}/sample:$CIRCLE_SHA1 asia.gcr.io/${PROJECT_NAME}/sample:latest
-      - run:
-          name: Save Docker image layer cache
-          command: |
-            mkdir -p /caches
-            docker save -o /caches/app.tar asia.gcr.io/${PROJECT_NAME}/sample:latest
-      - save_cache:
-          key: v1-{{ .Branch }}-{{ epoch }}
-          paths:
-            - /caches/app.tar
-      - run:
-          name: Run tests
-          command: |
-            docker-compose -f docker-compose.test.yml run --rm sample
-      - deploy:
-          name: Deploy application Docker image
-          command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              echo $ACCT_AUTH | base64 -d > ${HOME}/account-auth.json
-              gcloud auth activate-service-account --key-file ${HOME}/account-auth.json
-              gcloud config set project $PROJECT_NAME
-              gcloud --quiet config set container/cluster $CLUSTER_NAME
-              gcloud config set compute/zone ${CLOUDSDK_COMPUTE_ZONE}
-              gcloud --quiet container clusters get-credentials $CLUSTER_NAME
-              gcloud config set container/use_client_certificate True
-              ./deploy.sh
-            fi
+            bash ./concat.sh
+            envsubst < ./k8s.yml > ./patched_k8s.yml
+            kubectl apply -f ./patched_k8s.yml
+
+workflows:
+  version: 2
+  deploy_prod:
+    jobs:
+      - deploy_to_prod:
+          filters:
+            branches:
+              only: master

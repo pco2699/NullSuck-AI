@@ -1,0 +1,15 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: app-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: nullsuck-ip
+    ingress.gcp.kubernetes.io/pre-shared-cert: nullsuck-cert
+spec:
+  rules:
+    - host: ai.pco2699.net
+      http:
+        paths:
+        - backend:
+            serviceName: app-svc
+            servicePort: 3000
