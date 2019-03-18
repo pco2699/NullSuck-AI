@@ -9,6 +9,7 @@ spec:
   rules:
     - host: ai.pco2699.net
       http:
-        backend:
-          serviceName: app-svc
-          servicePort: 3000
+        paths:
+        - backend:
+            serviceName: app-svc
+            servicePort: 3000
