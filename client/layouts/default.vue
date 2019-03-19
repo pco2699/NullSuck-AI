@@ -86,30 +86,36 @@
   </v-app>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      clipped: false,
-      drawer: false,
-      fixed: false,
-      items: [
-        {
-          icon: 'apps',
-          title: 'Welcome',
-          to: '/'
-        },
-        {
-          icon: 'bubble_chart',
-          title: 'Inspire',
-          to: '/inspire'
-        }
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js'
+<script lang="ts">
+  import Vue from 'Vue'
+  import Component from 'nuxt-class-component'
+
+  @Component
+  export default
+
+  export default {
+    data() {
+      return {
+        clipped: false,
+        drawer: false,
+        fixed: false,
+        items: [
+          {
+            icon: 'apps',
+            title: 'Welcome',
+            to: '/'
+          },
+          {
+            icon: 'bubble_chart',
+            title: 'Inspire',
+            to: '/inspire'
+          }
+        ],
+        miniVariant: false,
+        right: true,
+        rightDrawer: false,
+        title: 'Vuetify.js'
+      }
     }
   }
-}
 </script>
