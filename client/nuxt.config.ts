@@ -1,6 +1,5 @@
 const pkg = require('./package')
 
-
 const vuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
 module.exports = {
@@ -39,12 +38,12 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [ '~/assets/style/app.styl' ],
+  css: ['~/assets/style/app'],
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: [ '@/plugins/vuetify' ],
+  plugins: ['@/plugins/vuetify'],
 
   /*
   ** Nuxt.js modules
@@ -72,12 +71,11 @@ module.exports = {
         import: ['~assets/style/variables.styl']
       }
     },
-    
+
     /*
     ** You can extend webpack config here
     */
     extend(config: any, ctx: any) {
-      // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
           enforce: 'pre',

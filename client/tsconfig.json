@@ -4,7 +4,9 @@
       "baseUrl": ".",
       "experimentalDecorators": true,
       "allowJs": true,
-      "types": ["@types/node", "@nuxt/vue-app"]
+      "types": ["@types/node", "@nuxt/vue-app"],
+      "plugins": [
+        { "name": "typescript-tslint-plugin" }
+      ]
     }
   }
-  

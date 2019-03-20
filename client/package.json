@@ -9,7 +9,8 @@
     "build": "nuxt-ts build",
     "start": "nuxt-ts start",
     "generate": "nuxt-ts generate",
-    "lint": "tslint --ext .ts,.vue --ignore-path .gitignore .",
+    "lint": "tslint --project .",
+    "lintfix": "tslint --fix --project .",
     "precommit": "npm run lint"
   },
   "dependencies": {
@@ -24,12 +25,15 @@
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.4.5",
+    "@types/prettier": "1.16.1",
+    "@types/stylus": "^0.48.31",
     "nodemon": "^1.18.9",
     "prettier": "1.14.3",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "tslint-config-prettier": "^1.18.0",
     "tslint-loader": "^3.5.4",
-    "tslint-plugin-prettier": "^2.0.1"
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript-tslint-plugin": "^0.3.1"
   }
 }
