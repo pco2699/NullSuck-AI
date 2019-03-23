@@ -9,7 +9,7 @@ WORKDIR /app
 
 COPY ./Pipfile ./Pipfile.lock ./
 
-RUN pipenv install
+RUN pipenv install --system
 
 COPY . .
 
