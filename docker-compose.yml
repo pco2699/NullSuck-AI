@@ -1,22 +1,30 @@
 version: '3'
 services:
   app:
-    build: ./client/
+    build: ./client/.
     volumes:
       - ./client/:/app
+      - node_volume:/app/node_modules
     ports:
       - "3000:3000"
-    command: ash -c "yarn install && yarn run dev"
+    command: yarn run dev
     environment:
       API_URL: "http://api:5432"
   api:
     build: ./server/.
     volumes:
       - ./server/:/app
+      - pycache_volume:/root/.cache
     ports:
       - "5432:5432"
+    command: pipenv run dev
+    environment:
+      PY_ENV: "local"
+    links:
+      - db
   db:
     image: mysql:5.7
+    command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
     volumes:
       - db_volume:/var/lib/mysql
     ports:
@@ -24,10 +32,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 'P@ssw0rd'
       TZ: "Asia/Tokyo"
-  db_volume:
-    image: busybox:1.29.3
-    volumes:
-      - db_volume:/var/lib/mysql
-    container_name: db_volume
+
 volumes:
   db_volume:
+  node_volume:
+  pycache_volume:

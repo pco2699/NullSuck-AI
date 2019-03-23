@@ -38,7 +38,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/style/app'],
+  css: ['~/assets/style/app.styl'],
 
   /*
   ** Plugins to load before mounting the App
@@ -58,6 +58,15 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
+  },
+  proxy: {
+    '/api': process.env.API_URL
+  },
+  watchers: {
+    webpack: {
+      poll: true
+    }
   },
 
   /*

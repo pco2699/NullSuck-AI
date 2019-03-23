@@ -9,6 +9,11 @@ verify_ssl = true
 responder = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
+mysqlclient = "*"
+numpy = "*"
+marshmallow-sqlalchemy = "*"
+scikit-learn = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.6"
@@ -17,5 +22,5 @@ python_version = "3.6"
 allow_prereleases = true
 
 [scripts]
-dev = "uvicorn --host=0.0.0.0 --debug api:api"
+dev = "uvicorn --host=0.0.0.0 --port=5432 --debug --log-level=debug api:api"
 prod = "uvicorn --host=0.0.0.0 --port=5432 api:api"

@@ -1,19 +1,16 @@
+import settings
+import models
 import responder
+from handlers import WineAttributeResource, PredictionResource
 
-import os
-from os.path import join, dirname
-from dotenv import load_dotenv
+models.main()
+api = responder.API(
+    cors=True,
+    allowed_hosts=["*"],
+)
 
-dotenv_path = join(dirname(__file__), '/config/env', '.env', '.' + os.getenv('PY_ENV', 'local'))
-load_dotenv(dotenv_path)
-
-api = responder.API()
-
-
-@api.route("/")
-def hello_world(req, resp):
-    resp.media = {"hello": True}
-
+api.add_route('/api/wine_attributes', WineAttributeResource)
+api.add_route('/api/predict', PredictionResource)
 
 if __name__ == '__main__':
-    api.run(address="0.0.0.0")
+    api.run(address="0.0.0.0", port=5432, debug=True)

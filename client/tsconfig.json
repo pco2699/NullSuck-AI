@@ -1,12 +1,18 @@
 {
-    "extends": "@nuxt/typescript",
-    "compilerOptions": {
-      "baseUrl": ".",
-      "experimentalDecorators": true,
-      "allowJs": true,
-      "types": ["@types/node", "@nuxt/vue-app"],
-      "plugins": [
-        { "name": "typescript-tslint-plugin" }
-      ]
-    }
+  "extends": "@nuxt/typescript",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "allowJs": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictPropertyInitialization": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "types": ["@types/node", "@nuxt/vue-app"],
+    "plugins": [
+      { "name": "typescript-tslint-plugin" }
+    ]
   }
+}

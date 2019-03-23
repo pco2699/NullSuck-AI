@@ -1,73 +1,55 @@
 <template>
-  <v-layout
-    column
-    justify-center
-    align-center
-  >
-    <v-flex
-      xs12
-      sm8
-      md6
-    >
-      <div class="text-xs-center">
-        <logo />
-        <vuetify-logo />
+  <v-layout column>
+    <div class="text-xs-center">
+      <div class="mt-3 title font-weight-bold">
+        ワインについて教えてください
       </div>
-      <v-card>
-        <v-card-title class="headline">Welcome to the Vuetify + Nuxt.js template</v-card-title>
-        <v-card-text>
-          <p>Vuetify is a progressive Material Design component framework for Vue.js. It was designed to empower developers to create amazing applications.</p>
-          <p>For more information on Vuetify, check out the <a
-            href="https://vuetifyjs.com"
-            target="_blank"
-          >documentation</a>.</p>
-          <p>If you have questions, please join the official <a
-            href="https://chat.vuetifyjs.com/"
-            target="_blank"
-            title="chat"
-          >discord</a>.</p>
-          <p>Find a bug? Report it on the github <a
-            href="https://github.com/vuetifyjs/vuetify/issues"
-            target="_blank"
-            title="contribute"
-          >issue board</a>.</p>
-          <p>Thank you for developing with Vuetify and I look forward to bringing more exciting features in the future.</p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3">
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-          >Nuxt Documentation</a>
-          <br>
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-          >Nuxt GitHub</a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn
-            color="primary"
-            flat
-            nuxt
-            to="/inspire"
-          >Continue</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+      <div class="mt-3 mb-3 caption grey--text">
+        スライダーを選択してデータを入力してください。<br>
+        データをもとにAIが診断します。
+      </div>
+    </div>
+    <form-card v-for="wineAttr in wineAttributes" :key="`${wineAttr.id}`" :wine-attr="wineAttr" :total="wineAttributes.length"/>
+    <div v-if="isError" class="red--text body-2 text-xs-center">入力されていない数値があります</div>
+    <v-btn @click="submit">診断結果を表示する</v-btn>
   </v-layout>
 </template>
 
-<script>
-import Logo from '~/components/Logo.vue'
-import VuetifyLogo from '~/components/VuetifyLogo.vue'
+<script lang="ts">
+  import Vue from 'vue'
+  import Component, {Action, Getter, Mutation} from 'nuxt-class-component'
+  import FormCard from '~/components/Form/FormCard.vue'
+  import { WineAttribute } from '~/store/index.ts'
+  import VueRouter from 'vue-router'
 
-export default {
-  components: {
-    Logo,
-    VuetifyLogo
+  @Component({
+    components: {
+      FormCard
+    }})
+  export default class Index extends Vue {
+    @Mutation('SET_TITLE') setTitle
+    @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
+    @Action('POST_WINE_VALUE') postWineValue
+    isError: boolean = false
+    $router: VueRouter
+
+    created () {
+      this.setTitle('入力')
+    }
+
+    submit(){
+      this.isError = false
+      this.wineAttributes.forEach(attr => {
+        if(!attr.value){
+          this.isError = true
+        }
+      })
+
+      if(!this.isError) {
+        this.isError = false;
+        this.postWineValue()
+        this.$router.push('/result')
+      }
+    }
   }
-}
 </script>
