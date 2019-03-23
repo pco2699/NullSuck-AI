@@ -25,7 +25,7 @@ jobs:
             keys:
               - v1-{{ .Branch }}
             paths:
-              - /caches/
+              - /caches
       - run:
           name: Load Docker image layer cache
           command: |
@@ -44,7 +44,7 @@ jobs:
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
             docker push asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
             docker push asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
-          no_output_timout: 30m
+          no_output_timeout: 1h
       - run:
           name: Save Docker image layer cache
           command: |
