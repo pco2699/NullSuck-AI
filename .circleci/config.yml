@@ -37,10 +37,10 @@ jobs:
           command: |
             docker build --cache-from=asia.gcr.io/${PROJECT_NAME}/app:latest \
               -t asia.gcr.io/${PROJECT_NAME}/app:$CIRCLE_SHA1 ./client/.
-            docker tag ${PROJECT_NAME}/app:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/app:latest
+            docker tag asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/app:latest
             docker build --cache-from=asia.gcr.io/${PROJECT_NAME}/api:latest \
               -t asia.gcr.io/${PROJECT_NAME}/api:$CIRCLE_SHA1 ./server/.
-            docker tag ${PROJECT_NAME}/api:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/api:latest
+            docker tag asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/api:latest
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
             docker push asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
             docker push asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
