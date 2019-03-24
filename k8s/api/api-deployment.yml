@@ -6,8 +6,6 @@ metadata:
     app: api
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app: api
@@ -19,6 +17,7 @@ spec:
       containers:
       - name: api
         image: asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+        # image: asia.gcr.io/nullsuck/api:b579d918adaf26369b221a0d6b15334764b5e2d9
         ports:
         - containerPort: 5432
         env:
