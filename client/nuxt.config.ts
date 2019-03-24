@@ -2,7 +2,7 @@ const pkg = require('./package')
 
 const vuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
-const environment = process.env.NODE_ENV || 'development';
+const environment = process.env.NODE_ENV || 'development'
 const envSet = require(`./env/env.${environment}.js`)
 
 module.exports = {
