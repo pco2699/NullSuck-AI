@@ -7,7 +7,9 @@
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
+    "build:prod": "cross-env NODE_ENV=\"production\" nuxt-ts build",
     "start": "nuxt-ts start",
+    "start:prod": "cross-env NODE_ENV=\"production\" nuxt-ts start",
     "generate": "nuxt-ts generate",
     "lint": "tslint --project .",
     "lintfix": "tslint --fix --project .",

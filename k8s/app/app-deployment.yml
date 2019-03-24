@@ -18,5 +18,5 @@ spec:
         ports:
         - containerPort: 3000
         env:
-          - name: API_URL
-            value: "http://api-svc:5432"
+          - name: NODE_ENV
+            value: "production"
