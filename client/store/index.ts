@@ -1,10 +1,5 @@
 import { MutationTree, ActionTree, ActionContext, GetterTree } from 'vuex'
 
-export interface Constraint {
-  max_value: number
-  min_value: number
-}
-
 export interface Result {
   value: number
   comment: string
