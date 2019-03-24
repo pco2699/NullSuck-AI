@@ -23,7 +23,7 @@ spec:
           - name: PY_ENV
             value: prod
           - name: DB_HOST
-            value: 127.0.0.1:3306
+            value: 127.0.0.1
           # These secrets are required to start the pod.
           # [START cloudsql_secrets]
           - name: DB_USER
