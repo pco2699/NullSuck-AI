@@ -25,13 +25,12 @@ jobs:
             keys:
               - v1-{{ .Branch }}
             paths:
-              - /caches
+              - /caches/cache.tar
       - run:
           name: Load Docker image layer cache
           command: |
             set +o pipefail
-            docker load -i /caches/app.tar | true
-            docker load -i /caches/api.tar | true
+            docker load -i /caches/cache.tar | true
       - run:
           name: Docker build and push
           command: |
@@ -49,12 +48,11 @@ jobs:
           name: Save Docker image layer cache
           command: |
             mkdir -p /caches
-            docker save -o /caches/api.tar asia.gcr.io/${PROJECT_NAME}/api:latest
-            docker save -o /caches/app.tar asia.gcr.io/${PROJECT_NAME}/app:latest
+            docker save -o /caches/cache.tar asia.gcr.io/${PROJECT_NAME}/api:latest asia.gcr.io/${PROJECT_NAME}/app:latest
       - save_cache:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
-            - /caches
+            - /caches/cache.tar
       - run:
           name: Deploy to Kubernetes
           command: |

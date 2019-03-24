@@ -19,4 +19,4 @@ spec:
         - containerPort: 3000
         env:
           - name: API_URL
-            value: "http://api:5432"
+            value: "http://api-svc:5432"
