@@ -4,12 +4,11 @@ RUN apk --no-cache --update-cache add gcc gfortran python python-dev py-pip buil
     mkdir /app && \
     pip install pipenv
 
-ENV PIPENV_VENV_IN_PROJECT=1
 WORKDIR /app
 
 COPY ./Pipfile ./Pipfile.lock ./
 
-RUN pipenv install
+RUN pipenv install --system
 
 COPY . .
 

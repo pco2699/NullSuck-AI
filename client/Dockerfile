@@ -8,6 +8,6 @@ COPY ./package.json ./yarn.lock ./
 RUN yarn install
 COPY . .
 
-RUN yarn run build
+RUN yarn run build:prod
 
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "run", "start:prod"]

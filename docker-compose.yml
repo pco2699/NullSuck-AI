@@ -9,7 +9,7 @@ services:
       - "3000:3000"
     command: yarn run dev
     environment:
-      API_URL: "http://api:5432"
+      NODE_ENV: "development"
   api:
     build: ./server/.
     volumes:

@@ -2,6 +2,9 @@ const pkg = require('./package')
 
 const vuetifyLoaderPlugin = require('vuetify-loader/lib/plugin')
 
+const environment = process.env.NODE_ENV || 'development'
+const envSet = require(`./env/env.${environment}.js`)
+
 module.exports = {
   mode: 'universal',
 
@@ -9,6 +12,7 @@ module.exports = {
     port: 3000, // デフォルト: 3000
     host: '0.0.0.0' // デフォルト: localhost
   },
+  env: envSet,
 
   /*
   ** Headers of the page
@@ -61,7 +65,10 @@ module.exports = {
     proxy: true
   },
   proxy: {
-    '/api': process.env.API_URL
+    '/api':
+      process.env.NODE_ENV === 'production'
+        ? 'http://api-svc:5432'
+        : 'http://api:5432'
   },
   watchers: {
     webpack: {

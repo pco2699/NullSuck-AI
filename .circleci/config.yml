@@ -21,18 +21,38 @@ jobs:
             gcloud --quiet config set compute/zone ${GOOGLE_COMPUTE_ZONE}
             gcloud --quiet container clusters get-credentials ${GOOGLE_CLUSTER_NAME}
       - setup_remote_docker
+      - restore_cache:
+            keys:
+              - v1-{{ .Branch }}
+            paths:
+              - /caches/cache.tar
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i /caches/cache.tar | true
       - run:
           name: Docker build and push
           command: |
-            docker build \
-              -t ${PROJECT_NAME}/app ./client/.
-            docker tag ${PROJECT_NAME}/app asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
-            docker build \
-              -t ${PROJECT_NAME}/api ./server/.
-            docker tag ${PROJECT_NAME}/api asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+            docker build --cache-from=asia.gcr.io/${PROJECT_NAME}/app:latest \
+              -t asia.gcr.io/${PROJECT_NAME}/app:$CIRCLE_SHA1 ./client/.
+            docker tag asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/app:latest
+            docker build --cache-from=asia.gcr.io/${PROJECT_NAME}/api:latest \
+              -t asia.gcr.io/${PROJECT_NAME}/api:$CIRCLE_SHA1 ./server/.
+            docker tag asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1} asia.gcr.io/${PROJECT_NAME}/api:latest
             gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
             docker push asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
             docker push asia.gcr.io/${PROJECT_NAME}/app:${CIRCLE_SHA1}
+          no_output_timeout: 1h
+      - run:
+          name: Save Docker image layer cache
+          command: |
+            mkdir -p /caches
+            docker save -o /caches/cache.tar asia.gcr.io/${PROJECT_NAME}/api:latest asia.gcr.io/${PROJECT_NAME}/app:latest
+      - save_cache:
+          key: v1-{{ .Branch }}-{{ epoch }}
+          paths:
+            - /caches/cache.tar
       - run:
           name: Deploy to Kubernetes
           command: |
