@@ -8,7 +8,6 @@ COPY ./package.json ./yarn.lock ./
 RUN yarn install
 COPY . .
 
-ENV NODE_ENV="production"
-RUN yarn run build
+RUN yarn run build:prod
 
-CMD ["yarn", "run", "start"]
+CMD ["yarn", "run", "start:prod"]
