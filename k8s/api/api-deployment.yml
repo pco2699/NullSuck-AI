@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: asia.gcr.io/nullsuck/api:abebd3edd49894b73cca73fecc35dbc05a2e621b
+        image: asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
         ports:
         - containerPort: 5432
         env:
