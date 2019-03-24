@@ -6,6 +6,8 @@ metadata:
     app: api
 spec:
   replicas: 1
+  strategy:
+    type: RollingUpdate
   selector:
     matchLabels:
       app: api
@@ -16,7 +18,7 @@ spec:
     spec:
       containers:
       - name: api
-        image: asia.gcr.io/${PROJECT_NAME}/api:${CIRCLE_SHA1}
+        image: asia.gcr.io/nullsuck/api:abebd3edd49894b73cca73fecc35dbc05a2e621b
         ports:
         - containerPort: 5432
         env:

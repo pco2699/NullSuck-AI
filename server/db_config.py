@@ -15,7 +15,7 @@ DB_NAME = os.environ.get('DB_NAME')
 
 DB_URL = "mysql://{0}:{1}@{2}:3306".format(DB_USER, DB_PASSWORD, DB_HOST)
 
-ECHO_LOG = False
+ECHO_LOG = True
 engine = create_engine(
     DB_URL, echo=ECHO_LOG
 )
