@@ -11,13 +11,13 @@
   import Vue from 'vue'
   import Component, { Mutation } from 'nuxt-class-component'
 
-  import ResultChart from '~/components/Result/ResultChart.vue'
-  import ResultList from '~/components/Result/ResultList.vue'
-
   import VueRouter from 'vue-router'
 
   @Component({
-    components: { ResultChart, ResultList }
+    components: {
+      ResultChart: () => import('~/components/Result/ResultChart.vue'),
+      ResultList: () => import('~/components/Result/ResultList.vue')
+    }
   })
   export default class Result extends Vue {
     @Mutation('SET_TITLE') setTitle

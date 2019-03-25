@@ -17,14 +17,14 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import Component, {Action, Getter, Mutation} from 'nuxt-class-component'
-  import FormCard from '~/components/Form/FormCard.vue'
+  import Component, {Getter, Mutation} from 'nuxt-class-component'
+
   import { WineAttribute } from '~/store/index.ts'
   import VueRouter from 'vue-router'
 
   @Component({
     components: {
-      FormCard
+      FormCard: () => import('~/components/Form/FormCard.vue')
     }})
   export default class Index extends Vue {
     @Mutation('SET_TITLE') setTitle

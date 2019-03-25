@@ -10,6 +10,8 @@ services:
     command: yarn run dev
     environment:
       NODE_ENV: "development"
+      API_URL: "http://api:5432"
+      API_URL_BROWSER: "http://localhost:5432"
   api:
     build: ./server/.
     volumes:

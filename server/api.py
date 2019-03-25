@@ -7,7 +7,10 @@ models.main()
 api = responder.API(
     cors=True,
     allowed_hosts=["*"],
-)
+    cors_params= { "allow_origins": "*",
+                   "allow_methods": "*",
+                   "allow_headers": "*"
+                   })
 
 api.add_route('/api/wine_attributes', WineAttributeResource)
 api.add_route('/api/predict', PredictionResource)
