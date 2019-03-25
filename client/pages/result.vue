@@ -24,6 +24,10 @@
     @Mutation('CLEAR_WINE_VALUE') clear
     $router: VueRouter
 
+    async fetch(ctx) {
+      await ctx.store.dispatch("POST_WINE_VALUE")
+    }
+
     created () {
       this.setTitle('診断結果')
     }

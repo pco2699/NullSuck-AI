@@ -29,7 +29,7 @@
   export default class Index extends Vue {
     @Mutation('SET_TITLE') setTitle
     @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
-    @Action('POST_WINE_VALUE') postWineValue
+    @Getter('IS_ALL_VALUE_SETTED') isAllValueSetted
     isError: boolean = false
     $router: VueRouter
 
@@ -38,18 +38,12 @@
     }
 
     submit(){
-      this.isError = false
-      this.wineAttributes.forEach(attr => {
-        if(!attr.value){
-          this.isError = true
-        }
-      })
-
-      if(!this.isError) {
-        this.isError = false;
-        this.postWineValue()
-        this.$router.push('/result')
+      if(!this.isAllValueSetted()){
+        this.isError = true
+        return
       }
+      this.isError = false
+      this.$router.push('/result')
     }
   }
 </script>

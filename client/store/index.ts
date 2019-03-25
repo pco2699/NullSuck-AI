@@ -83,14 +83,25 @@ const actions: ActionTree<State, any> = {
 }
 
 const getters: GetterTree<State, any> = {
-  GET_TITLE: (state): string => {
+  GET_TITLE: (state: State): string => {
     return state.title
   },
-  GET_WINE_ATTR: (state): WineAttribute[] => {
+  GET_WINE_ATTR: (state: State): WineAttribute[] => {
     return state.wine_attributes
   },
-  GET_RESULT: (state): Result => {
+  GET_RESULT: (state: State): Result => {
     return state.result
+  },
+  IS_ALL_VALUE_SETTED: (state: State): () => boolean => {
+    return () => {
+      let isAllValueSetted: boolean = true
+      state.wine_attributes.forEach(attr => {
+        if(!attr.value){
+          isAllValueSetted = false
+        }
+      })
+      return isAllValueSetted
+    }
   }
 }
 
