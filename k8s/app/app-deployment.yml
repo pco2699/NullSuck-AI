@@ -25,5 +25,5 @@ spec:
             value: "production"
           - name: API_URL
             value: "http://api-svc:5432"
-          - API_URL_BROWSER:
+          - name: API_URL_BROWSER
             value: "https://ai.pco2699.net"
