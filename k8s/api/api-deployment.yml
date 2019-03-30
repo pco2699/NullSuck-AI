@@ -20,12 +20,6 @@ spec:
         # image: asia.gcr.io/nullsuck/api:b579d918adaf26369b221a0d6b15334764b5e2d9
         ports:
         - containerPort: 5432
-        readinessProbe:
-          httpGet:
-            path: /api/healthcheck
-            port: 5432
-          initialDelaySeconds: 5
-          periodSeconds: 5
         env:
           - name: PY_ENV
             value: prod

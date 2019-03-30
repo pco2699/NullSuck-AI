@@ -23,7 +23,3 @@ spec:
         env:
           - name: NODE_ENV
             value: "production"
-          - name: API_URL
-            value: "http://api-svc:5432"
-          - name: API_URL_BROWSER
-            value: "https://ai.pco2699.net"
