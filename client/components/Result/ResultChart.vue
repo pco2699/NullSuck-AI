@@ -2,7 +2,7 @@
   <div>
     <div id="chartdiv"></div>
     <div id="point">
-      <span class="caption">美味しいワインである確率</span>
+      <span :style="fontSize">美味しいワインである確率</span>
       <span class="display-3">{{ result }}%</span>
     </div>
   </div>
@@ -22,6 +22,13 @@
   @Component
   export default class ResultChart extends Vue {
     result = 0
+
+    get fontSize() {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return { fontSize: '10px' }
+        default: return { fontSize: '12px' }
+      }
+    }
 
     mounted () {
       let result = this.$store.getters.GET_RESULT
