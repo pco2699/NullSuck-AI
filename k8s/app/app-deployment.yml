@@ -23,3 +23,5 @@ spec:
         env:
           - name: NODE_ENV
             value: "production"
+          - name: API_URL
+            value: "http://api-svc:5432"
