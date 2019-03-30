@@ -61,7 +61,7 @@ module.exports = {
   proxy: {
     '/api':
       process.env.NODE_ENV === 'production'
-        ? 'https//api-svc:5432'
+        ? 'http//api-svc:5432'
         : 'http://api:5432'
   },
   watchers: {
