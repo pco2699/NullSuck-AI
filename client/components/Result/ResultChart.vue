@@ -1,7 +1,10 @@
 <template>
   <div>
     <div id="chartdiv"></div>
-    <div id="point" class="display-3"> {{ result }} </div>
+    <div id="point">
+      <span class="caption">美味しいワインである確率</span>
+      <span class="display-3">{{ result }}%</span>
+    </div>
   </div>
 </template>
 
@@ -90,6 +93,9 @@
     height: 450px;
   }
   #point{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 240px;
     left: 50%;

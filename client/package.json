@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "nuxt-ts",
     "build": "nuxt-ts build",
-    "build:prod": "cross-env NODE_ENV=\"production\" nuxt-ts build",
+    "build:prod": "cross-env NODE_ENV=\"production\" API_URL=\"http://api-svc:5432/\" nuxt-ts build",
     "start": "nuxt-ts start",
     "start:prod": "cross-env NODE_ENV=\"production\" nuxt-ts start",
     "generate": "nuxt-ts generate",

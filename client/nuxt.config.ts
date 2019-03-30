@@ -56,6 +56,13 @@ module.exports = {
   */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    proxy: true
+  },
+  proxy: {
+    '/api':
+      process.env.NODE_ENV === 'production'
+        ? 'http://api-svc:5432'
+        : 'http://api:5432'
   },
   watchers: {
     webpack: {
