@@ -1,12 +1,12 @@
 id,japanese_title,english_title,step,max_value,min_value
-1,酒石酸濃度,fixed acidity,1,20,0
-2,酢酸濃度,volatile acidity,0.01,2,0
+1,酒石酸濃度,fixed acidity,0.01,1,0
+2,酢酸濃度,volatile acidity,0.01,1,0
 3,クエン酸濃度,citric acid,0.01,1,0
-4,残糖濃度,residual sugar,1,20,0
-5,塩化ナトリウム濃度,chlorides,0.01,0.8,0
-6,遊離二酸化硫黄濃度,free sulfur dioxide,1,80,1
-7,総二酸化硫黄濃度,total sulfur dioxide,10,300,5
-8,密度,density,0.001,1.004,0.99
-9,pH値,pH,0.01,5,2.5
-10,硫酸カリウム濃度,sulphates,0.01,2,0.25
-11,アルコール度数,alcohol,2,15,8
+4,残糖濃度,residual sugar,0.01,1,0
+5,塩化ナトリウム濃度,chlorides,0.01,1,0
+6,遊離二酸化硫黄濃度,free sulfur dioxide,0.01,1,0
+7,総二酸化硫黄濃度,total sulfur dioxide,0.01,1,0
+8,密度,density,0.01,1,0
+9,pH値,pH,0.01,1,0
+10,硫酸カリウム濃度,sulphates,0.01,1,0
+11,アルコール度数,alcohol,0.01,1,0

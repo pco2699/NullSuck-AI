@@ -19,19 +19,21 @@ class WineAttributeService:
             return WineAttributeSchema().dump(wine_attributes, many=True)
 
 class PredictionService:
-    model = pickle.load(open('nullsuckAi_model.sav', mode='rb'))
+    model = pickle.load(open('nullsuckAi_01model.sav', mode='rb'))
 
     @staticmethod
     def predict(data):
         # とりあえずpredictionにデータを突っ込む
-        prediction = Prediction()
-        session.add(prediction)
-        session.commit()
+        # prediction = Prediction()
+        # session.add(prediction)
+        # session.commit()
 
         df = DataFrame.from_dict(PredictionService.convert_dict(data), orient='columns')
 
-        predict = PredictionService.model.predict([df['value']])
-        return float(predict[0])
+        predict = PredictionService.model.predict_proba([df['value']])
+        predict_value =  round(float(predict[0][1]) * 100)
+
+        return predict_value
 
     @staticmethod
     def convert_dict(data):
