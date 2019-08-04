@@ -1,13 +1,13 @@
 <template>
   <v-app>
-    <v-toolbar
+    <v-app-bar
       app
       color="primary"
       class="white--text"
     >
-      <v-toolbar-side-icon class="white--text"/>
+      <v-app-bar-nav-icon class="white--text" />
       <v-toolbar-title v-text="title" />
-    </v-toolbar>
+    </v-app-bar>
     <v-content>
       <v-container>
         <nuxt/>

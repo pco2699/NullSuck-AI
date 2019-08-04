@@ -3,11 +3,11 @@
     <div class="subheading">
       {{ wineAttr.japanese_title }}
     </div>
-    <div class="caption">
+    <div class="caption mb-2">
       {{ wineAttr.id }}/{{total}}
     </div>
     <v-slider
-      class="px-5 pt-5 pb-3"
+      class="px-5 pt-12 pb-3"
       thumb-label="always"
       height="3"
       hide-details

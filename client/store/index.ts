@@ -92,11 +92,11 @@ const getters: GetterTree<State, any> = {
   GET_RESULT: (state: State): Result => {
     return state.result
   },
-  IS_ALL_VALUE_SETTED: (state: State): () => boolean => {
+  IS_ALL_VALUE_SETTED: (state: State): (() => boolean) => {
     return () => {
       let isAllValueSetted: boolean = true
       state.wine_attributes.forEach(attr => {
-        if(!attr.value){
+        if (!attr.value){
           isAllValueSetted = false
         }
       })

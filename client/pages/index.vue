@@ -1,6 +1,6 @@
 <template>
   <v-layout column>
-    <div class="text-xs-center">
+    <div class="text-center">
       <div class="mt-3 title font-weight-bold">
         ワインについて教えてください
       </div>
@@ -10,7 +10,7 @@
       </div>
     </div>
     <form-card v-for="wineAttr in wineAttributes" :key="`${wineAttr.id}`" :wine-attr="wineAttr" :total="wineAttributes.length"/>
-    <div v-if="isError" class="red--text body-2 text-xs-center">入力されていない数値があります</div>
+    <div v-if="isError" class="red--text body-2 text-center">入力されていない数値があります</div>
     <v-btn @click="submit">診断結果を表示する</v-btn>
   </v-layout>
 </template>

@@ -1,5 +1,4 @@
 {
-  "extends": "@nuxt/typescript",
   "compilerOptions": {
     "baseUrl": ".",
     "experimentalDecorators": true,
@@ -10,7 +9,10 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "types": ["@types/node", "@nuxt/vue-app"],
+    "esModuleInterop": true,
+    "paths": { "@/*": [ "./*" ], "~/*": [ "./*" ] },
+    "target": "es5",
+    "types": ["@types/node", "@nuxt/vue-app", "@nuxtjs/vuetify"],
     "plugins": [
       { "name": "typescript-tslint-plugin" }
     ]

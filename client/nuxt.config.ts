@@ -1,7 +1,10 @@
-import pkg from './package.json'
-import vuetifyLoaderPlugin from 'vuetify-loader/lib/plugin'
+const pkg = require('./package')
+import colors from 'vuetify/es5/util/colors'
 
-module.exports = {
+import NuxtConfiguration from '@nuxt/config'
+
+
+const config: NuxtConfiguration = {
   mode: 'universal',
 
   server: {
@@ -20,11 +23,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-      {
-        rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      }
     ]
   },
 
@@ -36,12 +34,19 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/style/app.styl'],
+  css: [],
+
+  vue: {
+    config: {
+      devtools: true,
+      productionTip: false
+    }
+  },
 
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['@/plugins/vuetify'],
+  plugins: [],
 
   /*
   ** Nuxt.js modules
@@ -51,6 +56,25 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/pwa'
   ],
+  devModules: [
+    '@nuxtjs/vuetify'
+  ],
+  vuetify: {
+    theme: {
+      themes: {
+        dark: false,
+        light: {
+          primary: colors.red.darken4,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
+  },
   /*
   ** Axios module configuration
   */
@@ -74,14 +98,6 @@ module.exports = {
   ** Build configuration
   */
   build: {
-    transpile: ['vuetify/lib'],
-    plugins: [new vuetifyLoaderPlugin()],
-    loaders: {
-      stylus: {
-        import: ['~assets/style/variables.styl']
-      }
-    },
-
     /*
     ** You can extend webpack config here
     */
@@ -97,3 +113,5 @@ module.exports = {
     }
   }
 }
+
+export default config
