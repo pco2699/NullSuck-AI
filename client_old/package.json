@@ -1,0 +1,43 @@
+{
+  "name": "nullsuck-ai-app",
+  "version": "1.0.0",
+  "description": "NullSuck-AI Project",
+  "author": "pco2699",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "build:prod": "cross-env NODE_ENV=\"production\" API_URL=\"http://api-svc:5432/\" nuxt build",
+    "start": "nuxt start",
+    "start:prod": "cross-env NODE_ENV=\"production\" nuxt start",
+    "generate": "nuxt generate",
+    "lint": "tslint --project .",
+    "lintfix": "tslint --fix --project .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@amcharts/amcharts4": "^4.5.12",
+    "@nuxtjs/axios": "^5.5.4",
+    "@nuxtjs/pwa": "^3.0.0-beta.16",
+    "@types/amcharts": "^3.21.4",
+    "@types/webpack": "^4.32.1",
+    "cross-env": "^5.2.0",
+    "nuxt": "^2.8.1",
+    "nuxt-class-component": "^1.3.0",
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.3",
+    "vue-property-decorator": "^8.2.1"
+  },
+  "devDependencies": {
+    "@nuxt/typescript": "^2.8.1",
+    "@nuxtjs/vuetify": "^1.1.1",
+    "@types/prettier": "1.18.1",
+    "nodemon": "^1.19.1",
+    "prettier": "1.18.2",
+    "tslint": "^5.18.0",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-loader": "^3.5.4",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript-tslint-plugin": "^0.5.4"
+  }
+}

@@ -1,6 +1,6 @@
-# nurusaku-ai
+# NullSuck-AI
 
-> Sample project for Nurusaku-ai
+> NullSuck-AI Project
 
 ## Build Setup
 
@@ -9,14 +9,14 @@
 $ yarn install
 
 # serve with hot reload at localhost:3000
-$ yarn dev
+$ yarn run dev
 
 # build for production and launch server
-$ yarn build
+$ yarn run build
 $ yarn start
 
 # generate static project
-$ yarn generate
+$ yarn run generate
 ```
 
-For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
+For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).

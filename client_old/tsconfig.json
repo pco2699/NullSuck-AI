@@ -1,8 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "module": "esnext",
-    "moduleResolution": "node",
     "experimentalDecorators": true,
     "allowJs": true,
     "noImplicitAny": false,
@@ -11,11 +9,12 @@
     "suppressImplicitAnyIndexErrors": true,
     "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
-    "lib": ["es2015", "dom", "dom"],
+    "esModuleInterop": true,
     "paths": { "@/*": [ "./*" ], "~/*": [ "./*" ] },
     "target": "es5",
-    "types": ["@types/node", "@nuxt/vue-app", "@nuxtjs/vuetify"]
-  },
-  "include": ["**/*.ts", "**/*.vue"],
-  "exclude": [".nuxt", "dist", "node_modules"]
+    "types": ["@types/node", "@nuxt/vue-app", "@nuxtjs/vuetify"],
+    "plugins": [
+      { "name": "typescript-tslint-plugin" }
+    ]
+  }
 }

@@ -16,33 +16,34 @@
 </template>
 
 <script lang="ts">
-import {Vue, Getter, Mutation, Component} from 'nuxt-property-decorator'
+  import Vue from 'vue'
+  import Component, {Getter, Mutation} from 'nuxt-class-component'
 
-import { WineAttribute } from '~/store/index.ts'
-import VueRouter from 'vue-router'
+  import { WineAttribute } from '~/store/index.ts'
+  import VueRouter from 'vue-router'
 
-@Component({
-  components: {
-    FormCard: () => import('~/components/Form/FormCard.vue')
-  }})
-export default class Index extends Vue {
-  @Mutation('SET_TITLE') setTitle
-  @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
-  @Getter('IS_ALL_VALUE_SETTED') isAllValueSetted
-  isError: boolean = false
-  $router: VueRouter
+  @Component({
+    components: {
+      FormCard: () => import('~/components/Form/FormCard.vue')
+    }})
+  export default class Index extends Vue {
+    @Mutation('SET_TITLE') setTitle
+    @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
+    @Getter('IS_ALL_VALUE_SETTED') isAllValueSetted
+    isError: boolean = false
+    $router: VueRouter
 
-  created () {
-    this.setTitle('入力')
-  }
-
-  submit(){
-    if(!this.isAllValueSetted()){
-      this.isError = true
-      return
+    created () {
+      this.setTitle('入力')
     }
-    this.isError = false
-    this.$router.push('/result')
+
+    submit(){
+      if(!this.isAllValueSetted()){
+        this.isError = true
+        return
+      }
+      this.isError = false
+      this.$router.push('/result')
+    }
   }
-}
 </script>

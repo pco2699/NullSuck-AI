@@ -21,7 +21,8 @@
 
 <script lang="ts">
   import Vue from 'vue'
-  import { Mutation, Prop, Component } from 'nuxt-property-decorator'
+  import Component, { Mutation } from 'nuxt-class-component'
+  import { Prop } from 'vue-property-decorator'
 
   @Component
   export default class FormCard extends Vue  {

@@ -1,8 +1,5 @@
-const pkg = require('./package')
 import colors from 'vuetify/es5/util/colors'
-
 import NuxtConfiguration from '@nuxt/config'
-
 
 const config: NuxtConfiguration = {
   mode: 'universal',
@@ -12,72 +9,50 @@ const config: NuxtConfiguration = {
     host: '0.0.0.0' // デフォルト: localhost
   },
   /*
-  ** Headers of the page
-  */
+   ** Headers of the page
+   */
   head: {
-    title: pkg.name,
+    titleTemplate: '%s - ' + process.env.npm_package_name,
+    title: process.env.npm_package_name || '',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {
+        hid: 'description',
+        name: 'description',
+        content: process.env.npm_package_description || ''
+      }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
-
   /*
-  ** Customize the progress-bar color
-  */
+   ** Customize the progress-bar color
+   */
   loading: { color: '#fff' },
-
   /*
-  ** Global CSS
-  */
+   ** Global CSS
+   */
   css: [],
-
-  vue: {
-    config: {
-      devtools: true,
-      productionTip: false
-    }
-  },
-
   /*
-  ** Plugins to load before mounting the App
-  */
+   ** Plugins to load before mounting the App
+   */
   plugins: [],
-
   /*
-  ** Nuxt.js modules
-  */
+   ** Nuxt.js dev-modules
+   */
+  devModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxtjs/vuetify'
+  ],
+  /*
+   ** Nuxt.js modules
+   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    '@nuxtjs/pwa'
+    '@nuxtjs/pwa',
   ],
-  devModules: [
-    '@nuxtjs/vuetify'
-  ],
-  vuetify: {
-    theme: {
-      themes: {
-        dark: false,
-        light: {
-          primary: colors.red.darken4,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
-          info: colors.teal.lighten1,
-          warning: colors.amber.base,
-          error: colors.deepOrange.accent4,
-          success: colors.green.accent3
-        }
-      }
-    }
-  },
-  /*
-  ** Axios module configuration
-  */
+
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     proxy: true
@@ -93,25 +68,42 @@ const config: NuxtConfiguration = {
       poll: true
     }
   },
-
   /*
-  ** Build configuration
-  */
-  build: {
-    /*
-    ** You can extend webpack config here
-    */
-    extend(config: any, ctx: any) {
-      if (ctx.isDev && ctx.isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(ts|vue)$/,
-          loader: 'tslint-loader',
-          exclude: /(node_modules)/
-        })
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      themes: {
+        dark: false,
+        light: {
+          primary: colors.red.darken4,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
       }
-    }
+    },
+  },
+  /*
+   ** Build configuration
+   */
+  build: {
+    babel: {
+      plugins:
+        [
+          ["@babel/plugin-proposal-decorators", { legacy: true }],
+          ["@babel/plugin-proposal-class-properties", { loose: true }]
+        ]
+    },
+    /*
+     ** You can extend webpack config here
+     */
+    extend(config, ctx) {}
   }
 }
-
 export default config
