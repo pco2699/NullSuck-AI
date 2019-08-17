@@ -25,6 +25,8 @@ module.exports = {
   ],
   // add your custom rules here
   rules: {
+    'camelcase': "off",
+    "@typescript-eslint/camelcase": 0,
     'space-before-function-paren': 0
   }
 }

@@ -62,10 +62,10 @@ const actions: ActionTree<State, any> = {
     }
   },
   async nuxtServerInit(store: ActionContext<State, any>) {
-    // const res = await (this as any).$axios.$get('/api/wine_attributes')
-    // if (res.wine_attributes) {
-    //   store.commit('SET_WINE_ATTR', res.wine_attributes)
-    // }
+    const res = await (this as any).$axios.$get('/api/wine_attributes')
+    if (res.wine_attributes) {
+      store.commit('SET_WINE_ATTR', res.wine_attributes)
+    }
   },
   async POST_WINE_VALUE(store: ActionContext<State, any>) {
     const attributes: WineAttribute[] = [...store.state.wine_attributes]
