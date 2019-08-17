@@ -11,7 +11,7 @@ sqlalchemy = "*"
 python-dotenv = "*"
 mysqlclient = "*"
 numpy = "*"
-marshmallow-sqlalchemy = "*"
+marshmallow-sqlalchemy = "~=0.16"
 scikit-learn = "*"
 pandas = "*"
 
