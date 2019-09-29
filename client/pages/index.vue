@@ -18,26 +18,26 @@
 <script lang="ts">
 import {Vue, Getter, Mutation, Component} from 'nuxt-property-decorator'
 
-import { WineAttribute } from '~/store/index.ts'
+import { WineAttribute } from '@/store/types.ts'
 import VueRouter from 'vue-router'
 
 @Component({
   components: {
-    FormCard: () => import('~/components/Form/FormCard.vue')
+    FormCard: () => import('@/components/Form/FormCard.vue')
   }})
 export default class Index extends Vue {
   @Mutation('SET_TITLE') setTitle
   @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
-  @Getter('IS_ALL_VALUE_SETTED') isAllValueSetted
+  @Getter('IS_ALL_VALUE_SET') isAllValueSet
   isError: boolean = false
   $router: VueRouter
 
-  created () {
+  created = () => {
     this.setTitle('入力')
   }
 
-  submit(){
-    if(!this.isAllValueSetted()){
+  submit = () => {
+    if(!this.isAllValueSet()){
       this.isError = true
       return
     }

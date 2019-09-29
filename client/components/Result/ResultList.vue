@@ -18,7 +18,7 @@
 
 <script lang="ts">
 import { Getter, Vue, Component } from 'nuxt-property-decorator'
-import {WineAttribute} from "~/store";
+import {WineAttribute} from "@/store/types";
 
 @Component
 export default class extends Vue {

@@ -20,8 +20,7 @@
 </template>
 
 <script lang="ts">
-  import Vue from 'vue'
-  import { Mutation, Prop, Component } from 'nuxt-property-decorator'
+  import { Vue, Mutation, Prop, Component } from 'nuxt-property-decorator'
 
   @Component
   export default class FormCard extends Vue  {
@@ -29,7 +28,7 @@
     @Prop({type: Object}) wineAttr
     @Prop({type: Number}) total
 
-    set(val: number){
+    set = (val: number) => {
       this.setWineValue({ id: this.wineAttr.id, value: val})
     }
   }

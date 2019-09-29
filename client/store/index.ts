@@ -1,106 +1,81 @@
-import { MutationTree, ActionTree, ActionContext, GetterTree } from 'vuex'
-
-export interface Result {
-  value: number
-  comment: string
-}
-
-export interface WineAttribute {
-  id: number
-  japanese_title: string
-  english_title: string
-  value: number
-  step: number
-  max_value: number
-  min_value: number
-}
-
-export interface State {
-  title: string
-  wine_attributes: WineAttribute[]
-  result: Result
-}
-
-export interface InputValue {
-  id: number
-  value: number
-}
+import { MutationTree, ActionTree, ActionContext, GetterTree, Store } from 'vuex'
+import {State, WineAttribute, InputValue, Result} from '@/store/types';
 
 const s = (): State => {
   return {
     title: '',
-    wine_attributes: [],
+    wineAttributes: [],
     result: { value: 0, comment: '' }
   }
 }
 
 const mutations: MutationTree<State> = {
-  SET_TITLE: (state, title: string) => {
+  SET_TITLE: (state, title: string): void => {
     state.title = title
   },
-  SET_WINE_ATTR: (state, wineAttributes: WineAttribute[]) => {
-    state.wine_attributes = wineAttributes
+  SET_WINE_ATTR: (state, wineAttributes: WineAttribute[]): void => {
+    state.wineAttributes = wineAttributes
   },
-  SET_WINE_VALUE: (state, payload: { id: number; value: number }) => {
-    state.wine_attributes[payload.id - 1].value = payload.value
+  SET_WINE_VALUE: (state, payload: { id: number; value: number }): void => {
+    state.wineAttributes[payload.id - 1].value = payload.value
   },
-  CLEAR_WINE_VALUE: state => {
-    state.wine_attributes.forEach(w => {
-      delete state.wine_attributes[w.id - 1].value
+  CLEAR_WINE_VALUE: (state): void => {
+    state.wineAttributes.forEach((w): void => {
+      delete state.wineAttributes[w.id - 1].value
     })
   },
-  SET_RESULT: (state, value: number) => {
+  SET_RESULT: (state, value: number): void => {
     state.result.value = value
   }
 }
 
-const actions: ActionTree<State, any> = {
-  async FETCH_WINE_ATTR(store: ActionContext<State, any>) {
-    const res = await (this as any).$axios.$get('/api/wine_attributes')
+const actions: ActionTree<null, State> = {
+  async FETCH_WINE_ATTR({ commit }): Promise<void> {
+    const res = await this.$axios.$get('/api/wine_attributes')
     if (res.wine_attributes) {
-      store.commit('SET_WINE_ATTR', res.wine_attributes)
+      commit('SET_WINE_ATTR', res.wine_attributes)
     }
   },
-  async nuxtServerInit(store: ActionContext<State, any>) {
-    // const res = await (this as any).$axios.$get('/api/wine_attributes')
-    // if (res.wine_attributes) {
-    //   store.commit('SET_WINE_ATTR', res.wine_attributes)
-    // }
+  async nuxtServerInit({ commit }): Promise<void> {
+    const res = await this.$axios.$get('/api/wine_attributes')
+    if (res.wine_attributes) {
+      commit('SET_WINE_ATTR', res.wine_attributes)
+    }
   },
-  async POST_WINE_VALUE(store: ActionContext<State, any>) {
-    const attributes: WineAttribute[] = [...store.state.wine_attributes]
+  async POST_WINE_VALUE({ rootState, commit }): Promise<void> {
+    const attributes: WineAttribute[] = [...rootState.wineAttributes]
     const inputValue: InputValue[] = []
 
-    attributes.forEach(attr => {
+    attributes.forEach((attr): void => {
       inputValue.push({ id: attr.id, value: attr.value })
     })
 
-    const res = await (this as any).$axios.$post('/api/predict', inputValue)
+    const res = await this.$axios.$post('/api/predict', inputValue)
     if (res.status) {
-      store.commit('SET_RESULT', res.result)
+      commit('SET_RESULT', res.result)
     }
   }
 }
 
-const getters: GetterTree<State, any> = {
+const getters: GetterTree<null, State> = {
   GET_TITLE: (state: State): string => {
     return state.title
   },
   GET_WINE_ATTR: (state: State): WineAttribute[] => {
-    return state.wine_attributes
+    return state.wineAttributes
   },
   GET_RESULT: (state: State): Result => {
     return state.result
   },
-  IS_ALL_VALUE_SETTED: (state: State): (() => boolean) => {
-    return () => {
-      let isAllValueSetted: boolean = true
-      state.wine_attributes.forEach(attr => {
+  IS_ALL_VALUE_SET: (state: State): (() => boolean) => {
+    return (): boolean => {
+      let isAllValueSet = true
+      state.wineAttributes.forEach((attr): void => {
         if (!attr.value){
-          isAllValueSetted = false
+          isAllValueSet = false
         }
       })
-      return isAllValueSetted
+      return isAllValueSet
     }
   }
 }
