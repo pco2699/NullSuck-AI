@@ -58,10 +58,7 @@ const config: NuxtConfiguration = {
     proxy: true
   },
   proxy: {
-    '/api':
-      process.env.NODE_ENV === 'production'
-        ? 'http://api-svc:5432'
-        : 'http://api:5432'
+    '/api': 'http://api:5432'
   },
   watchers: {
     webpack: {
