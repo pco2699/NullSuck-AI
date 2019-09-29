@@ -9,11 +9,11 @@ verify_ssl = true
 responder = "*"
 sqlalchemy = "*"
 python-dotenv = "*"
-mysqlclient = "*"
+mysqlclient = "=="
 numpy = "*"
-marshmallow-sqlalchemy = "*"
-scikit-learn = "*"
-pandas = "*"
+marshmallow-sqlalchemy = "~=0.16"
+scikit-learn = "==0.20.3"
+pandas = "==0.24.2"
 
 [requires]
 python_version = "3.6"
