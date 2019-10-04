@@ -1,7 +1,7 @@
-
 export interface Result {
   value: number
   comment: string
+  status: boolean
 }
 
 export interface WineAttribute {
@@ -12,12 +12,6 @@ export interface WineAttribute {
   step: number
   max_value: number
   min_value: number
-}
-
-export interface State {
-  title: string
-  wineAttributes: WineAttribute[]
-  result: Result
 }
 
 export interface InputValue {

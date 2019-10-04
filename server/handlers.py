@@ -14,7 +14,7 @@ class PredictionResource:
         res = PredictionService.predict(data)
         resp.media = {
             "status": True,
-            "result": res
+            "value": res
         }
 
 class HealthCheckResource:

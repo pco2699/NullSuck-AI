@@ -21,10 +21,13 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Component, Getter} from 'nuxt-property-decorator'
+  import { Vue, Component} from 'nuxt-property-decorator'
+  import { appStore } from '@/store';
 
   @Component
   export default class extends Vue {
-    @Getter('GET_TITLE') title: string;
+    get title() {
+      return appStore.title;
+    }
   }
 </script>

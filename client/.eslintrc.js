@@ -29,4 +29,4 @@ module.exports = {
     "@typescript-eslint/camelcase": 0,
     'space-before-function-paren': 0
   }
-}
+};

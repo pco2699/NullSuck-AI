@@ -102,5 +102,5 @@ const config: NuxtConfiguration = {
      */
     extend(config, ctx) {}
   }
-}
+};
 export default config

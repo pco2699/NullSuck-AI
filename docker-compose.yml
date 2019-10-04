@@ -15,12 +15,12 @@ services:
     build: ./server/.
     volumes:
       - ./server/:/app
+      - pycache_volume:/root/.cache
     ports:
       - "5432:5432"
-    command: bash -c "pipenv install && pipenv run dev"
+    command: bash -c "pipenv run dev"
     environment:
       PY_ENV: "local"
-      PIPENV_VERBOSITY: 1
     links:
       - db
   db:
@@ -37,3 +37,4 @@ services:
 volumes:
   db_volume:
   node_volume:
+  pycache_volume:

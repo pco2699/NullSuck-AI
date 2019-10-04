@@ -18,7 +18,8 @@
     "@types/amcharts": "^3.21.4",
     "nuxt": "^2.0.0",
     "nuxt-property-decorator": "^2.3.0",
-    "ts-node": "^8.3.0"
+    "ts-node": "^8.3.0",
+    "vuex-module-decorators": "^0.10.1"
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.8.1",

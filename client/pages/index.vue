@@ -16,33 +16,33 @@
 </template>
 
 <script lang="ts">
-import {Vue, Getter, Mutation, Component} from 'nuxt-property-decorator'
-
-import { WineAttribute } from '@/store/types.ts'
-import VueRouter from 'vue-router'
+import {Vue,  Component} from 'nuxt-property-decorator'
+import { appStore } from '@/store';
 
 @Component({
   components: {
     FormCard: () => import('@/components/Form/FormCard.vue')
   }})
 export default class Index extends Vue {
-  @Mutation('SET_TITLE') setTitle
-  @Getter('GET_WINE_ATTR') wineAttributes: WineAttribute[]
-  @Getter('IS_ALL_VALUE_SET') isAllValueSet
-  isError: boolean = false
-  $router: VueRouter
+  private isError: boolean = false;
 
-  created = () => {
-    this.setTitle('入力')
+  get wineAttributes() {
+    return appStore.wineAttributes;
   }
 
-  submit = () => {
-    if(!this.isAllValueSet()){
-      this.isError = true
+  private created() {
+    appStore.SET_TITLE('入力');
+  }
+
+  private async submit() {
+    console.log(appStore.IsAllValueSet());
+    if(!appStore.IsAllValueSet()){
+      this.isError = true;
       return
     }
-    this.isError = false
-    this.$router.push('/result')
+    this.isError = false;
+    await appStore.POST_WINE_VALUE();
+    await this.$router.push('/result')
   }
 }
 </script>

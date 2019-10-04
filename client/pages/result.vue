@@ -8,32 +8,24 @@
 </template>
 
 <script lang="ts">
-import {Vue, Component, Mutation} from 'nuxt-property-decorator'
-
-import VueRouter from 'vue-router'
+import { Vue, Component } from 'nuxt-property-decorator';
+import { appStore } from "@/store";
 
 @Component({
   components: {
     ResultChart: () => import('~/components/Result/ResultChart.vue'),
     ResultList: () => import('~/components/Result/ResultList.vue')
-  }
+  },
+  middleware: ['disable-direct-access']
 })
 export default class Result extends Vue {
-  @Mutation('SET_TITLE') setTitle
-  @Mutation('CLEAR_WINE_VALUE') clear
-  $router: VueRouter
-
-  async fetch(ctx) {
-    await ctx.store.dispatch("POST_WINE_VALUE")
+  created() {
+    appStore.SET_TITLE('診断結果');
   }
 
-  created () {
-    this.setTitle('診断結果')
-  }
-
-  back(){
-    this.clear()
-    this.$router.back()
+  private back(){
+    appStore.CLEAR();
+    this.$router.back();
   }
 
 }

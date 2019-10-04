@@ -20,16 +20,16 @@
 </template>
 
 <script lang="ts">
-  import { Vue, Mutation, Prop, Component } from 'nuxt-property-decorator'
+  import { Vue, Prop, Component } from 'nuxt-property-decorator'
+  import { appStore } from "@/store";
 
   @Component
   export default class FormCard extends Vue  {
-    @Mutation('SET_WINE_VALUE') setWineValue
-    @Prop({type: Object}) wineAttr
-    @Prop({type: Number}) total
+    @Prop({type: Object}) wineAttr;
+    @Prop({type: Number}) total;
 
-    set = (val: number) => {
-      this.setWineValue({ id: this.wineAttr.id, value: val})
+    set(val: number) {
+      appStore.SET_WINE_VALUE({ id: this.wineAttr.id, value: val});
     }
   }
 </script>

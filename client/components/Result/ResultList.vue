@@ -1,7 +1,7 @@
 <template>
   <v-list two-line>
     <template v-for="w in wineAttr">
-      <v-list-item avatar>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title>{{w.japanese_title}}</v-list-item-title>
           <v-list-item-subtitle>{{w.english_title}}</v-list-item-subtitle>
@@ -17,11 +17,13 @@
 </template>
 
 <script lang="ts">
-import { Getter, Vue, Component } from 'nuxt-property-decorator'
-import {WineAttribute} from "@/store/types";
+import { Vue, Component } from 'nuxt-property-decorator'
+import { appStore } from "@/store";
 
 @Component
 export default class extends Vue {
-  @Getter('GET_WINE_ATTR') wineAttr: WineAttribute[]
+  get wineAttr() {
+    return appStore.wineAttributes;
+  }
 }
 </script>

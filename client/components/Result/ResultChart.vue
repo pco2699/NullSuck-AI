@@ -9,46 +9,49 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component }  from 'nuxt-property-decorator'
-import * as am4core from "@amcharts/amcharts4/core"
-import * as am4charts from "@amcharts/amcharts4/charts"
-import am4themesAnimated from "@amcharts/amcharts4/themes/animated"
-import am4themesThemesDataviz from '@amcharts/amcharts4/themes/dataviz'
+import { Vue, Component } from 'nuxt-property-decorator';
+import * as am4core from '@amcharts/amcharts4/core';
+import * as am4charts from '@amcharts/amcharts4/charts';
+import am4themesAnimated from '@amcharts/amcharts4/themes/animated';
+import am4themesThemesDataviz from '@amcharts/amcharts4/themes/dataviz';
+import { appStore } from '@/store'
 
-am4core.useTheme(am4themesAnimated);
-am4core.useTheme(am4themesThemesDataviz);
 
 @Component
 export default class ResultChart extends Vue {
-  result = 0
+  private result = 0;
 
   get fontSize() {
     switch (this.$vuetify.breakpoint.name) {
-      case 'xs': return { fontSize: '10px' }
-      default: return { fontSize: '12px' }
+      case 'xs':
+        return { fontSize: '10px' };
+      default:
+        return { fontSize: '12px' };
     }
   }
 
-  mounted = () => {
-    let result = this.$store.getters.GET_RESULT
-    this.result = result.value
+  mounted() {
+    am4core.useTheme(am4themesAnimated);
+    am4core.useTheme(am4themesThemesDataviz);
+
+    this.result = appStore.result.value;
 
     // Create chart instance
     let chart = am4core.create("chartdiv", am4charts.RadarChart);
-    const data = [];
-    const wineAttr = this.$store.getters.GET_WINE_ATTR;
-    wineAttr.forEach(w => {
-      data.push({category: w.japanese_title, value:w.value});
-    })
 
-    chart.data = data;
+    chart.data = appStore.wineAttributes.map(w => {
+      return {
+        category: w.japanese_title,
+        value: w.value
+      }
+    });
     chart.radius = am4core.percent(100);
     chart.innerRadius = am4core.percent(50);
 
     // Create axes
-    let categoryAxis = chart.xAxes.push(new am4charts.Axis<am4charts.AxisRendererCircular>());
+    let categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis<am4charts.AxisRendererCircular>());
 
-    // categoryAxis.dataFields.category = "category";
+    categoryAxis.dataFields.category = "category";
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
     categoryAxis.tooltip.disabled = true;
@@ -60,7 +63,7 @@ export default class ResultChart extends Vue {
     labelTemplate.location = 0.5;
     labelTemplate.relativeRotation = 90;
 
-    let valueAxis = chart.yAxes.push(new am4charts.Axis<am4charts.AxisRendererRadial>());
+    let valueAxis = chart.yAxes.push(new am4charts.ValueAxis<am4charts.AxisRendererRadial>());
     valueAxis.renderer.grid.template.disabled = true;
     valueAxis.renderer.labels.template.disabled = true;
     valueAxis.tooltip.disabled = true;
@@ -85,12 +88,13 @@ export default class ResultChart extends Vue {
 
     series.columns.template.adapter.add("fill", (fill, target) => {
       return chart.colors.getIndex(target.dataItem.index);
-    })
+    });
 
     // Cursor
     chart.cursor = new am4charts.RadarCursor();
     chart.cursor.innerRadius = am4core.percent(50);
     chart.cursor.lineY.disabled = true;
+
   }
 }
 </script>
