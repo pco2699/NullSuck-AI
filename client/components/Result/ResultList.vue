@@ -13,7 +13,6 @@
       <v-divider></v-divider>
     </template>
   </v-list>
-
 </template>
 
 <script lang="ts">

@@ -4,7 +4,6 @@
     <result-list/>
     <v-btn @click="back">もう一度診断する</v-btn>
   </v-layout>
-
 </template>
 
 <script lang="ts">

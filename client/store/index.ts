@@ -1,6 +1,6 @@
 import { ActionTree, Store } from "vuex";
 import { initialiseStores } from '@/utils/store-accessor';
-import { AppState } from "@/store/app";
+import { AppState } from '@/store/app';
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const initializer = (store: Store<any>): void => initialiseStores(store);
 export const plugins = [initializer];

@@ -10,7 +10,6 @@
       class="px-5 pt-12 pb-3"
       thumb-label="always"
       height="3"
-      hide-details
       :max=wineAttr.max_value
       :min=wineAttr.min_value
       :step=wineAttr.step
